@@ -1,1 +1,10 @@
-pip install streamlit jupyterlab protobuf pillow ploty pandas xlrd tensorflow numpy keras
+streamlit 
+jupyterlab 
+protobuf 
+pillow 
+ploty 
+pandas 
+xlrd 
+tensorflow 
+numpy 
+keras
