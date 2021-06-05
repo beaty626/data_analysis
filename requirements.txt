@@ -1,10 +1,11 @@
-pip install streamlit  0.82.0
-pip install jupyterlab 3.0.16
-pip install protobuf 3.17.2
-pip install pillow 2.2.1
-pip install ploty 4.14.3
-pip install pandas 1.2.4
-pip install xlrd 2.0.1
-pip install tensorflow 2.5.0
-pip install numpy 1.20.3
-pip install keras 2.4.0
+/home/appuser/venv/bin/python -m pip install --upgrade pip
+/home/appuser/venv/bin/python -m pip install streamlit  0.82.0
+/home/appuser/venv/bin/python -m pip install jupyterlab 3.0.16
+/home/appuser/venv/bin/python -m pip install protobuf 3.17.2
+/home/appuser/venv/bin/python -m pip install pillow 2.2.1
+/home/appuser/venv/bin/python -m pip install ploty 4.14.3
+/home/appuser/venv/bin/python -m pip install pandas 1.2.4
+/home/appuser/venv/bin/python -m pip install xlrd 2.0.1
+/home/appuser/venv/bin/python -m pip install tensorflow 2.5.0
+/home/appuser/venv/bin/python -m pip install numpy 1.20.3
+/home/appuser/venv/bin/python -m pip install keras 2.4.0
