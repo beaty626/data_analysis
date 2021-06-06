@@ -1,5 +1,4 @@
-tensorflow-estimator==2.2.*
-tensorflow==2.2.0
+tensorflow==2.4.0
 numpy==1.19.2
 streamlit==0.82.0
 pandas==1.2.4
