@@ -1,6 +1,6 @@
-tensorflow==2.x
+tensorflow==2.0
 keras==2.3.1
-tensorflow-estimator==2.x
+tensorflow-estimator==2.0
 numpy==1.18.0
 streamlit==0.82.0
 pandas==1.2.4
