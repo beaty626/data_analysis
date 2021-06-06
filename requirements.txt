@@ -1,9 +1,10 @@
-numpy==1.20.3
 streamlit==0.82.0
+jupyterlab==3.0.16
+protobuf==3.17.2
+pillow==2.2.1
+ploty==4.14.3
 pandas==1.2.4
-Keras==2.3.1
-matplotlib==3.4.2
-plotly==4.14.3
-scikit_learn==0.24.2
-tensorflow==2.4.0
-
+xlrd==2.0.1
+tensorflow==2.5.0
+numpy==1.20.3
+keras==2.4.0
