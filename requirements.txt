@@ -1,9 +1,7 @@
-tensorflow==1.15.0
-keras==2.1.6
-tensorflow-estimator==1.15.1
-numpy==1.18.0
+numpy==1.20.3
 streamlit==0.82.0
 pandas==1.2.4
+keras==2.4.3
 matplotlib==3.4.2
 plotly==4.14.3
 scikit_learn==0.24.2
