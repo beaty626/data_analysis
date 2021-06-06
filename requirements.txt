@@ -1,7 +1,7 @@
 streamlit==0.82.0
 jupyterlab==3.0.16
 protobuf==3.17.2
-pillow==2.2.1
+pillow==6.2.0
 plotly==4.14.3
 pandas==1.2.4
 xlrd==2.0.1
