@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 from matplotlib.pylab import rcParams
 rcParams['figure.figsize']=20,10 
 #from keras.models import Sequential
-import tensorflow as tf
-from tf.keras import Sequential
+from tensorflow import keras
+from keras import Sequential
 from keras.layers import LSTM,Dropout,Dense
 
 from sklearn.preprocessing import MinMaxScaler
