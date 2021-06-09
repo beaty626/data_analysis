@@ -217,7 +217,7 @@ predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
 # Visualising the results
 plt.plot( df['DATE'],dataset_test.values, color = 'red', label = 'Real TESLA Stock Price')
-plt.plot( df['DATE'],predicted_stock_price, color = 'blue', label = 'Predicted TESLA Stock Price')
+#plt.plot( df['DATE'],predicted_stock_price, color = 'blue', label = 'Predicted TESLA Stock Price')
 plt.xticks(np.arange(0,159,5))
 plt.title('TESLA Stock Price Prediction')
 plt.xlabel('Time')
