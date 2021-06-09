@@ -7,7 +7,6 @@ import time
 import datetime
 from datetime import datetime, date, time
 import matplotlib.pyplot as plt
-import tkinter
 import matplotlib
 matplotlib.use('TkAgg')
 from keras.models import Sequential
