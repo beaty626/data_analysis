@@ -165,85 +165,62 @@ st.plotly_chart(col6)
 #predict for future incidents
 
 
-#get rid of the other columns
-df2 = df[['DATE', 'Downtime (hrs)']]
-df2
-
-#Now, we can convert the “Downtime (hrs)” data type to float
-df2 = df2.astype({"Downtime (hrs)": float})
-df2["DATE"] = pd.to_datetime(df2.DATE, format="%m/%d/%Y")
-df2.dtypes
-
-#Index Column
-df.index = df['DATE']
-
-#plot  the data on a graph
-plt.plot(df['Downtime (hrs)'],label='Downtime tred')
 
 
-#Data preparation
-df2 = df2.sort_index(ascending=True,axis=0)
-data = pd.DataFrame(index=range(0,len(df2)),columns=['DATE','Downtime (hrs)'])
+training_set =  df.iloc[:, 6:7].values
+test_set =  df.iloc[:, 6:7].values
 
 
+# Feature Scaling
+sc = MinMaxScaler(feature_range = (0, 1))
+training_set_scaled = sc.fit_transform(training_set)# Creating a data structure with 60 time-steps and 1 output
+X_train = []
+y_train = []
+for i in range(5,159 ):
+    X_train.append(training_set_scaled[i-5:i, 0])
+    y_train.append(training_set_scaled[i, 0])
+X_train, y_train = np.array(X_train), np.array(y_train)
+X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
+#(740, 60, 1)
 
-for i in range(0,len(data)):
-    data["DATE"][i]=df2['DATE'][i]
-    data["Downtime (hrs)"][i]=df2["Downtime (hrs)"][i]
-    
-data
+model = Sequential()#Adding the first LSTM layer and some Dropout regularisation
+model.add(LSTM(units = 5, return_sequences = True, input_shape = (X_train.shape[1], 1)))
+model.add(Dropout(0.2))# Adding a second LSTM layer and some Dropout regularisation
+model.add(LSTM(units = 5, return_sequences = True))
+model.add(Dropout(0.2))# Adding a third LSTM layer and some Dropout regularisation
+model.add(LSTM(units = 5, return_sequences = True))
+model.add(Dropout(0.2))# Adding a fourth LSTM layer and some Dropout regularisation
+model.add(LSTM(units = 5))
+model.add(Dropout(0.2))# Adding the output layer
+model.add(Dense(units = 1))# Compiling the RNN
+model.compile(optimizer = 'adam', loss = 'mean_squared_error')# Fitting the RNN to the Training set
+model.fit(X_train, y_train, epochs = 10, batch_size = 3)
 
-
-
-#max min scaler
-scaler=MinMaxScaler(feature_range=(0,1))
-data.index=data.DATE
-data.drop('DATE',axis=1,inplace=True)
-final_data = data.values
-train_data=final_data[0:24,:]
-valid_data=final_data[24:,:]
-scaler=MinMaxScaler(feature_range=(0,1))
-scaled_data=scaler.fit_transform(final_data)
-x_train_data,y_train_data=[],[]
-for i in range(6,len(train_data)):
-    x_train_data.append(scaled_data[i-6:i,0])
-    y_train_data.append(scaled_data[i,0])
-
-x_train_data
-y_train_data
-
-#Long Short-Term Memory Model
-lstm_model=Sequential()
-lstm_model.add(LSTM(units=1,return_sequences=True,input_shape=(np.shape(x_train_data)[0],1)))
-lstm_model.add(LSTM(units=50))
-lstm_model.add(Dense(1))
-model_data=data[len(data)-len(valid_data)-20:].values
-model_data=model_data.reshape(-1,1)
-model_data=scaler.transform(model_data)
-
-
-#This step covers the preparation of the train data and the test data
-#lstm_model.compile(loss='mean_squared_error',optimizer='adam')
-#lstm_model.fit(x_train_data,y_train_data,epochs=1,batch_size=1,verbose=2)
-#X_test=[]
-#for i in range(2,model_data.shape[0]):
-#    X_test.append(model_data[i-2:i,0])
-#X_test=np.array(X_test)
-#X_test=np.reshape(X_test,(X_test.shape[0],X_test.shape[1],1))
+# Getting the predicted stock price of 2017
+dataset_train =  df.iloc[:, 6:7]
+dataset_test =  df.iloc[:, 6:7]
+dataset_total = pd.concat((dataset_train, dataset_test), axis = 0)
+inputs = dataset_total[len(dataset_total) - len(dataset_test) - 6:].values
+inputs = inputs.reshape(-1,1)
+inputs = sc.transform(inputs)
+X_test = []
+for i in range(5,159):
+    X_test.append(inputs[i-5:i, 0])
+X_test = np.array(X_test)
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+print(X_test.shape)
+# (459, 60, 1)
 
 
+predicted_stock_price = model.predict(X_test)
+predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
-#In this step, we are running the model using the test data we defined in the previous step
-#predicted_stock_price=lstm_model.predict(X_test)
-#predicted_stock_price=scaler.inverse_transform(predicted_stock_price)
-
-
-#Prediction results
-
-#train_data=data[:200]
-#valid_data=data[200:]
-#valid_data['Predictions']=predicted_stock_price
-#plt.plot(train_data["Close"])
-#plt.plot(valid_data[['Close',"Predictions"]])
-
-
+# Visualising the results
+plt.plot( df['DATE'],dataset_test.values, color = 'red', label = 'Real TESLA Stock Price')
+plt.plot( df['DATE'],predicted_stock_price, color = 'blue', label = 'Predicted TESLA Stock Price')
+plt.xticks(np.arange(0,159,5))
+plt.title('TESLA Stock Price Prediction')
+plt.xlabel('Time')
+plt.ylabel('TESLA Stock Price')
+plt.legend()
+plt.show()
