@@ -7,15 +7,18 @@ import time
 import datetime
 from datetime import datetime, date, time
 import matplotlib.pyplot as plt
-#matplotlib inline
-from matplotlib.pylab import rcParams
-rcParams['figure.figsize']=20,10 
-#from keras.models import Sequential
-from tensorflow import keras
-from keras import Sequential
+import tkinter
+import matplotlib
+matplotlib.use('TkAgg')
+from keras.models import Sequential
 from keras.layers import LSTM,Dropout,Dense
 
+from keras.layers import *
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
+from keras.callbacks import EarlyStopping
 
 
 
