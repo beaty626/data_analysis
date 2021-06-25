@@ -3,4 +3,3 @@ numpy==1.20.3
 selenium==3.141.0
 urllib3==1.26.3
 whitenoise==5.2.0
-tensorflow-cpu==2.5.0
